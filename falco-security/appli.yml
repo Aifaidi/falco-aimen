@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: falco
+  namespace: argocd
+spec:
+  destination:
+    namespace: falco
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: falco-security/charts
+    repoURL: 'https://github.com/Aifaidi/falco-aimen.git'
+    targetRevision: HEAD
+    plugin:
+      name: lovely
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - PrunePropagationPolicy=background
+
