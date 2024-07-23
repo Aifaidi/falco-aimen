@@ -1,0 +1,4 @@
+resources:
+  - tls.sealed.yaml
+generatorOptions:
+  disableNameSuffixHash: true
