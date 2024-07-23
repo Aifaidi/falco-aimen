@@ -457,6 +457,8 @@ falco:
     fullfqdn: false
     # -- Listen port. Default value: 2801
     listenPort: ""
+    webui:
+      enabled: true
 
   ####################
   # falcoctl config  #
