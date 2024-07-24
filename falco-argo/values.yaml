@@ -1,17 +1,28 @@
 falco:
-    falcosidekick:
-        enabled: true
-        webui:
-            enabled: true
-        config:
-            webhook:
-                address: http://webhook-falco-eventsource-svc.argo-events.svc.cluster.local:12000/falco
-                customHeaders: Source:falco
-    fakeEventGenerator:
-      enabled: false
-    falco:
-      rulesFile:
-        - /etc/falco/falco_rules.yaml
-        - /etc/falco/falco_rules.local.yaml
-        - /etc/falco/k8s_audit_rules.yaml
-        - /etc/falco/rules.d/custom-rules.yaml
+  falcosidekick:
+    enabled: true
+    webui:
+      enabled: true
+      service:
+        # -- The web UI service type
+        type: NodePort
+        # -- The web UI service port dor the falcosidekick-ui
+        port: 2802
+        # -- The web UI service nodePort
+        nodePort: 30282
+        # -- The web UI service targetPort
+        targetPort: 2802
+        # -- The web UI service annotations (use this to set a internal LB, for example.)
+        annotations: {}
+    config:
+      webhook:
+        address: http://webhook-falco-eventsource-svc.argo-events.svc.cluster.local:12000/falco
+        customHeaders: Source:falco
+  fakeEventGenerator:
+    enabled: false
+  falco:
+    rulesFile:
+    - /etc/falco/falco_rules.yaml
+    - /etc/falco/falco_rules.local.yaml
+    - /etc/falco/k8s_audit_rules.yaml
+    - /etc/falco/rules.d/custom-rules.yaml
