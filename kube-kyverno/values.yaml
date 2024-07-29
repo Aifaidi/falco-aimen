@@ -1,62 +1,64 @@
-replicaCount: 1
+kyverno:
 
-image:
-  repository: ghcr.io/kyverno/kyverno
-  pullPolicy: IfNotPresent
-  tag: "latest"
-
-resources:
-  limits:
-    cpu: 500m
-    memory: 512Mi
-  requests:
-    cpu: 250m
-    memory: 256Mi
-
-priorityClassName: ""
-podSecurityContext: {}
-securityContext: {}
-serviceAccount:
-  create: true
-  annotations: {}
-  name: ""
-
-# Activer toutes les règles par défaut en mode audit
-validationFailureAction: audit
-
-policies:
-  - name: default
-    rules:
-      - policy: kyverno-sample
-        validationFailureAction: audit
-      - policy: kyverno-validate
-        validationFailureAction: audit
-      - policy: kyverno-mutating
-        validationFailureAction: audit
-      - policy: kyverno-generating
-        validationFailureAction: audit
-
-# Enable Kyverno Plugin
-kyvernoPlugin:
-  enabled: true
-
-# Kyverno UI Configurations
-ui:
-  enabled: true
-  plugins:
-    kyverno: true
-  service:
-    type: ClusterIP
-    port: 8000
-  ingress:
-    enabled: false
+  replicaCount: 1
+  
+  image:
+    repository: ghcr.io/kyverno/kyverno
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  
   resources:
     limits:
-      cpu: 200m
-      memory: 200Mi
+      cpu: 500m
+      memory: 512Mi
     requests:
-      cpu: 100m
-      memory: 100Mi
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+      cpu: 250m
+      memory: 256Mi
+
+  priorityClassName: ""
+  podSecurityContext: {}
+  securityContext: {}
+  serviceAccount:
+    create: true
+    annotations: {}
+    name: ""
+  
+  # Activer toutes les règles par défaut en mode audit
+  validationFailureAction: audit
+  
+  policies:
+    - name: default
+      rules:
+        - policy: kyverno-sample
+          validationFailureAction: audit
+        - policy: kyverno-validate
+          validationFailureAction: audit
+        - policy: kyverno-mutating
+          validationFailureAction: audit
+        - policy: kyverno-generating
+          validationFailureAction: audit
+
+  # Enable Kyverno Plugin
+  kyvernoPlugin:
+    enabled: true
+  
+  # Kyverno UI Configurations
+  ui:
+    enabled: true
+    plugins:
+      kyverno: true
+    service:
+      type: ClusterIP
+      port: 8000
+    ingress:
+      enabled: false
+    resources:
+      limits:
+        cpu: 200m
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
