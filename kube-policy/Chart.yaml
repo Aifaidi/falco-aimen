@@ -19,7 +19,7 @@ maintainers:
 dependencies:
 - name: policy
   version: 2.24.1
-  repository: https://kyverno.github.io/policy-reporter
+  repository: https://github.com/kyverno/policy-reporter
 - name: monitoring
   condition: monitoring.enabled
   version: "2.8.2"
