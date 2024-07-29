@@ -1,3 +1,4 @@
+
 apiVersion: v2
 name: policy-reporter
 description: |
@@ -16,6 +17,9 @@ maintainers:
 - name: Frank Jogeleit
 
 dependencies:
+- name: policy
+  version: 2.24.1
+  repository: https://kyverno.github.io/policy-reporter
 - name: monitoring
   condition: monitoring.enabled
   version: "2.8.2"
