@@ -1,5 +1,5 @@
 # Override the chart name used for all resources
-policy:
+policy-reporter:
 
   nameOverride: ""
 
