@@ -174,10 +174,10 @@ policy-reporter:
   
   # Settings for the Policy Reporter UI subchart (see subchart's values.yaml)
   ui:
-    enabled: false
+    enabled: true
   
   kyvernoPlugin:
-    enabled: false
+    enabled: true
   
   # Settings for the monitoring subchart
   monitoring:
