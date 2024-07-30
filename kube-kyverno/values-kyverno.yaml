@@ -70,13 +70,13 @@ kyverno:
 
       # -- Install CRDs in group `kyverno.io`
       kyverno:
-        cleanuppolicies: true
-        clustercleanuppolicies: true
-        clusterpolicies: true
-        globalcontextentries: true
-        policies: true
-        policyexceptions: true
-        updaterequests: true
+        cleanuppolicies: false
+        clustercleanuppolicies: false
+        clusterpolicies: false
+        globalcontextentries: false
+        policies: false
+        policyexceptions: false
+        updaterequests: false
 
       # -- Install CRDs in group `reports.kyverno.io`
       reports:
