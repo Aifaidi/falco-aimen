@@ -21,3 +21,7 @@ kubeVersion: ">=1.25.0-0"
 annotations:
   artifacthub.io/operator: "false"
   artifacthub.io/prerelease: "false"
+dependencies:
+- name: kyverno-policies
+  version: 0.0.0
+  repository: https://github.com/kyverno/policies
