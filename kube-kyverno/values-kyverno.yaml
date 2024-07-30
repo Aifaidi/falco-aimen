@@ -1,12 +1,6 @@
 # -- Internal settings used with `helm template` to generate install manifest
 # @ignored
 kyverno:
-  policy-reporter:
-    ui:
-      enabled: true
-
-    kyvernoPlugin:
-      enabled: true
   templating:
     enabled: false
     debug: false
