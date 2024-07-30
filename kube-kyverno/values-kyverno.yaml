@@ -977,7 +977,7 @@ kyverno:
     createSelfSignedCert: false
 
     # -- (int) Desired number of pods
-    replicas: ~
+    replicas: 2
 
     # -- The number of revisions to keep
     revisionHistoryLimit: 10
