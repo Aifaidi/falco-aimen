@@ -42,9 +42,10 @@ dependencies:
 - name: kyverno
   version: 3.2.6
   repository: https://kyverno.github.io/kyverno/
-- name: kyverno-policies
-  version: 3.2.5
-  repository: https://kyverno.github.io/kyverno/
 - name: policy-reporter
   version: 2.24.1
   repository: https://kyverno.github.io/policy-reporter
+- name: kyverno-policies
+  version: 3.2.5
+  repository: https://kyverno.github.io/kyverno/
+
