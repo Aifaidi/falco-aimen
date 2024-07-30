@@ -131,11 +131,6 @@ policy-reporter:
 
   api:
     logging: false # enable debug API access logging, sets logLevel to debug
-
-  # REST API
-  rest:
-    enabled: false
-
   # Prometheus Metrics API
   metrics:
     enabled: false
