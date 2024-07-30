@@ -19,9 +19,3 @@ dependencies:
 - name: policy-reporter
   version: 2.24.1
   repository: https://kyverno.github.io/policy-reporter
-- name: ui
-  condition: ui.enabled
-  version: "2.10.5"
-- name: kyvernoPlugin
-  condition: kyvernoPlugin.enabled
-  version: "1.6.5"
