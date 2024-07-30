@@ -207,7 +207,7 @@ policy-reporter:
     # available plugins
     plugins:
       # enable kyverno for Policy Reporter UI and monitoring
-      kyverno: false
+      kyverno: true
     # The name of service policy-report. Defaults to ReleaseName.
     backend: ""
     # overwrite the fullname of all resources including subcharts
