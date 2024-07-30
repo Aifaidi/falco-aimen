@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+  namespace: kyverno
+spec:
+  destination:
+    namespace: kyverno
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: kyverno-glob/charts
+    repoURL: 'https://github.com/Aifaidi/falco-aimen.git'
+    targetRevision: HEAD
+    plugin:
+      name: lovely
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - Replace=true
