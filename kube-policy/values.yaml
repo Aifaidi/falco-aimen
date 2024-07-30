@@ -1,42 +1,42 @@
-# Override the chart name used for all resources
+  # Override the chart name used for all resources
 policy-reporter:
-
+  
   nameOverride: ""
-
+  
   image:
     registry: ghcr.io
     repository: kyverno/policy-reporter
     pullPolicy: IfNotPresent
     tag: 2.20.1
-
+  
   imagePullSecrets: []
-
+  
   priorityClassName: ""
-
+  
   replicaCount: 1
-
+  
   revisionHistoryLimit: 10
-
+  
   deploymentStrategy: {}
-  # rollingUpdate:
-  #  maxSurge: 25%
-  #  maxUnavailable: 25%
-  # type: RollingUpdate
-
+    # rollingUpdate:
+    #  maxSurge: 25%
+    #  maxUnavailable: 25%
+    # type: RollingUpdate
+  
   # When using a custom port together with the PolicyReporter UI
   # the port has also to be changed in the UI subchart as well because it can't access the parent values.
   # You can change the port under `ui.policyReporter.port`
   port:
     name: http
     number: 8080
-
+  
   # Key/value pairs that are attached to all resources.
   annotations: {}
-
+  
   # Create cluster role policies
   rbac:
     enabled: true
-
+  
   serviceAccount:
     # Specifies whether a service account should be created
     create: true
@@ -45,7 +45,7 @@ policy-reporter:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     name: ""
-
+  
   service:
     enabled: true
     ## configuration of service
@@ -56,10 +56,10 @@ policy-reporter:
     type: ClusterIP
     # integer number. This is port for service
     port: 8080
-
+  
   podSecurityContext:
     fsGroup: 1234
-
+  
   securityContext:
     runAsUser: 1234
     runAsNonRoot: true
@@ -68,31 +68,31 @@ policy-reporter:
     readOnlyRootFilesystem: true
     capabilities:
       drop:
-      - ALL
+        - ALL
     seccompProfile:
       type: RuntimeDefault
-
+  
   # Key/value pairs that are attached to pods.
   podAnnotations: {}
-
+  
   # Key/value pairs that are attached to pods.
   podLabels: {}
-
+  
   # Allow additional env variables to be added
   envVars: []
-
+  
   resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   memory: 100Mi
-  #   cpu: 10m
-  # requests:
-  #   memory: 75Mi
-  #   cpu: 5m
-
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   memory: 100Mi
+    #   cpu: 10m
+    # requests:
+    #   memory: 75Mi
+    #   cpu: 5m
+  
   # Enable a NetworkPolicy for this chart. Useful on clusters where Network Policies are
   # used and configured in a default-deny fashion.
   networkPolicy:
@@ -104,7 +104,7 @@ policy-reporter:
       - protocol: TCP
         port: 6443
     ingress: []
-
+  
   ## Set to true to enable ingress record generation
   # ref to: https://kubernetes.io/docs/concepts/services-networking/ingress/
   ingress:
@@ -114,21 +114,29 @@ policy-reporter:
     labels: {}
     # key/value
     annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
     hosts:
-    - host: chart-example.local
-      paths: []
+      - host: chart-example.local
+        paths: []
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
-
+  
   logging:
     encoding: console # possible encodings are console and json
     logLevel: 0 # default info
     development: false # more human readable structure, enables stacktraces and removes log sampling
-
+  
+  api:
+    logging: false # enable debug API access logging, sets logLevel to debug
+  
+  # REST API
+  rest:
+    enabled: false
+  
+  # Prometheus Metrics API
   metrics:
     enabled: false
     mode: detailed # available modes are detailed, simple and custom
@@ -138,13 +146,13 @@ policy-reporter:
   #      exclude: ["Trivy CIS Kube Bench"]
   #    status:
   #      exclude: ["pass", "skip"]
-
+  
   profiling:
     enabled: false
-
+  
   # amount of queue workers for PolicyReport resource processing
   worker: 5
-
+  
   # Filter PolicyReport resources to process
   reportFilter:
     namespaces:
@@ -156,25 +164,25 @@ policy-reporter:
     clusterReports:
       # Disable the processing of ClusterPolicyReports
       disabled: false
-
+  
   # customize source specific logic like result ID generation
   sourceConfig: {}
   # sourcename:
   #   customID:
   #     enabled: true
   #     fields: ["resource", "policy", "rule", "category", "result", "message"]
-
+  
   # Settings for the Policy Reporter UI subchart (see subchart's values.yaml)
   ui:
-    enabled: enabled
-
+    enabled: false
+  
   kyvernoPlugin:
-    enabled: enabled
-
+    enabled: false
+  
   # Settings for the monitoring subchart
   monitoring:
     enabled: false
-
+  
   database:
     # Database Type, supported: mysql, postgres, mariadb
     type: ""
@@ -193,7 +201,7 @@ policy-reporter:
     # use an mounted secret as source for your values, required the information in JSON format
     # supported fields: username, password, host, dsn, database
     mountedSecret: ""
-
+  
   global:
     # available plugins
     plugins:
@@ -215,7 +223,7 @@ policy-reporter:
       password: ""
       # read credentials from secret
       secretRef: ""
-
+  
   emailReports:
     clusterName: "" # (optional) - displayed in the email report if configured
     titlePrefix: "Report" # title prefix in the email subject
@@ -229,7 +237,7 @@ policy-reporter:
       encryption: "" # default is none, supports ssl/tls and starttls
       skipTLS: false
       certificate: ""
-
+  
     # basic summary report
     summary:
       enabled: false
@@ -238,7 +246,7 @@ policy-reporter:
       backoffLimit: 3 # retry counter
       ttlSecondsAfterFinished: 0
       restartPolicy: Never # pod restart policy
-
+  
       to: [] # list of receiver email addresses
       filter: {} # optional filters
       #  disableClusterReports: false # remove ClusterPolicyResults from Reports
@@ -264,7 +272,7 @@ policy-reporter:
       backoffLimit: 3 # retry counter
       ttlSecondsAfterFinished: 0
       restartPolicy: Never # pod restart policy
-
+  
       to: [] # list of receiver email addresses
       filter: {} # optional filters
       #  disableClusterReports: false # remove ClusterPolicyResults from Reports
@@ -289,7 +297,7 @@ policy-reporter:
     # requests:
     #   memory: 75Mi
     #   cpu: 5m
-
+  
   # Reference a configuration which already exists instead of creating one
   existingTargetConfig:
     enabled: false
@@ -297,7 +305,7 @@ policy-reporter:
     name: ""
     # subPath within the secret (defaults to config.yaml)
     subPath: ""
-
+  
   # Supported targets for new PolicyReport Results
   target:
     loki:
@@ -331,24 +339,24 @@ policy-reporter:
       # Wildcars for namespaces and policies are supported, you can either define exclude or include values
       # Filters are available for all targets except the UI
       filter: {}
-      #      namespaces:
-      #        include: ["develop"]
-      #      priorities:
-      #        exclude: ["debug", "info", "error"]
-      #      labels:
-      #        include: ["app", "owner:team-a", "monitoring:*"]
+  #      namespaces:
+  #        include: ["develop"]
+  #      priorities:
+  #        exclude: ["debug", "info", "error"]
+  #      labels:
+  #        include: ["app", "owner:team-a", "monitoring:*"]
       channels: []
-      #    - host: "http://loki.loki-stack:3100"
-      #      sources: []
-      #      customLabels: {}
-      #      filter:
-      #        namespaces:
-      #          include: ["develop"]
-      #        priorities:
-      #          exclude: ["debug", "info", "error"]
-      #        reportLabels:
-      # .         include: ["app", "owner:team-b"]
-
+  #    - host: "http://loki.loki-stack:3100"
+  #      sources: []
+  #      customLabels: {}
+  #      filter:
+  #        namespaces:
+  #          include: ["develop"]
+  #        priorities:
+  #          exclude: ["debug", "info", "error"]
+  #        reportLabels:
+  # .         include: ["app", "owner:team-b"]
+  
     elasticsearch:
       # elasticsearch host address
       host: ""
@@ -386,7 +394,7 @@ policy-reporter:
       filter: {}
       # add additional elasticsearch channels with different configurations and filters
       channels: []
-
+  
     slack:
       # slack app webhook address
       webhook: ""
@@ -408,23 +416,23 @@ policy-reporter:
       filter: {}
       # add additional slack channels with different configurations and filters
       channels: []
-      #    - webhook: "https://slack.webhook1"
-      #      channel: ""
-      #      filter:
-      #        namespaces:
-      #          include: ["develop"]
-      #        priorities:
-      #          exclude: ["debug", "info", "error"]
-      #        policies:
-      #          include: ["require-run-as-nonroot"]
-      #        reportLabels:
-      # .         include: ["app", "owner:team-b"]
-      #    - webhook: "https://slack.webhook2"
-      #      minimumPriority: "warning"
-      #      filter:
-      #        namespaces:
-      #          include: ["team-a-*"]
-
+  #    - webhook: "https://slack.webhook1"
+  #      channel: ""
+  #      filter:
+  #        namespaces:
+  #          include: ["develop"]
+  #        priorities:
+  #          exclude: ["debug", "info", "error"]
+  #        policies:
+  #          include: ["require-run-as-nonroot"]
+  #        reportLabels:
+  # .         include: ["app", "owner:team-b"]
+  #    - webhook: "https://slack.webhook2"
+  #      minimumPriority: "warning"
+  #      filter:
+  #        namespaces:
+  #          include: ["team-a-*"]
+  
     discord:
       # discord app webhook address
       webhook: ""
@@ -442,7 +450,7 @@ policy-reporter:
       filter: {}
       # add additional discord channels with different configurations and filters
       channels: []
-
+  
     teams:
       # teams webhook address
       webhook: ""
@@ -465,7 +473,7 @@ policy-reporter:
       filter: {}
       # add additional teams channels with different configurations and filters
       channels: []
-
+  
     ui:
       # ui host address
       host: ""
@@ -480,7 +488,7 @@ policy-reporter:
       sources: []
       # Skip already existing PolicyReportResults on startup
       skipExistingOnStartup: true
-
+  
     webhook:
       # webhook host address
       host: ""
@@ -507,7 +515,7 @@ policy-reporter:
       filter: {}
       # add additional webhook channels with different configurations and filters
       channels: []
-
+  
     telegram:
       # telegram bot token
       token: ""
@@ -538,7 +546,7 @@ policy-reporter:
       filter: {}
       # add additional telegram channels with different configurations and filters
       channels: []
-
+  
     googleChat:
       # GoogleChat webhook
       webhook: ""
@@ -565,7 +573,7 @@ policy-reporter:
       filter: {}
       # add additional telegram channels with different configurations and filters
       channels: []
-
+  
     s3:
       # S3 access key
       accessKeyID: ""
@@ -603,7 +611,7 @@ policy-reporter:
       filter: {}
       # add additional s3 channels with different configurations and filters
       channels: []
-
+  
     kinesis:
       # AWS access key
       accessKeyID: ""
@@ -631,7 +639,7 @@ policy-reporter:
       filter: {}
       # add additional s3 channels with different configurations and filters
       channels: []
-
+  
     securityHub:
       # AWS access key
       accessKeyID: ""
@@ -665,7 +673,7 @@ policy-reporter:
       filter: {}
       # add additional s3 channels with different configurations and filters
       channels: []
-
+  
     gcs:
       # GCS (Google Cloud Storage) Service Accout Credentials
       credentials: ""
@@ -687,7 +695,7 @@ policy-reporter:
       filter: {}
       # add additional s3 channels with different configurations and filters
       channels: []
-
+  
   # required when policy-reporter runs in HA mode and you have targets configured
   # if no targets are configured, leaderElection is disabled automatically
   # will be enabled when replicaCount > 1
@@ -697,7 +705,7 @@ policy-reporter:
     leaseDuration: 15
     renewDeadline: 10
     retryPeriod: 2
-
+  
   # use redis as external result cache instead of the in memory cache
   redis:
     enabled: false
@@ -706,7 +714,7 @@ policy-reporter:
     prefix: "policy-reporter"
     username: ""
     password: ""
-
+  
   # enabled if replicaCount > 1
   podDisruptionBudget:
     # -- Configures the minimum available pods for policy-reporter disruptions.
@@ -715,44 +723,44 @@ policy-reporter:
     # -- Configures the maximum unavailable pods for policy-reporter disruptions.
     # Cannot be used if `minAvailable` is set.
     maxUnavailable:
-
+  
   # Node labels for pod assignment
   # ref: https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector: {}
-
+  
   # Tolerations for pod assignment
   # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
-
+  
   # Anti-affinity to disallow deploying client and master nodes on the same worker node
   affinity: {}
-
+  
   # Topology Spread Constraints to better spread pods
   topologySpreadConstraints: []
-
+  
   # livenessProbe for policy-reporter
   livenessProbe:
     httpGet:
       path: /healthz
       port: http
-
+  
   # readinessProbe for policy-reporter
   readinessProbe:
     httpGet:
       path: /ready
       port: http
-
+  
   extraVolumes:
     volumeMounts: []
-
+  
     volumes: []
-
+  
   # If set the volume for sqlite is freely configurable below "- name: sqlite". If no value is set an emptyDir is used.
   sqliteVolume: {}
-  # emptyDir:
-  #   sizeLimit: 10Mi
-
+    # emptyDir:
+    #   sizeLimit: 10Mi
+  
   # If set the volume for /tmp is freely configurable below "- name: tmp". If no value is set an emptyDir is used.
   tmpVolume: {}
-  # emptyDir:
-  #   sizeLimit: 10Mi
+    # emptyDir:
+    #   sizeLimit: 10Mi
