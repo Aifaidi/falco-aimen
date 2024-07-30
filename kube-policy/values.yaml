@@ -13,7 +13,7 @@ policy-reporter:
 
   priorityClassName: ""
 
-  replicaCount: 2
+  replicaCount: 1
 
   revisionHistoryLimit: 10
 
@@ -129,9 +129,6 @@ policy-reporter:
     logLevel: 0 # default info
     development: false # more human readable structure, enables stacktraces and removes log sampling
 
-  api:
-    logging: false # enable debug API access logging, sets logLevel to debug
-  # Prometheus Metrics API
   metrics:
     enabled: false
     mode: detailed # available modes are detailed, simple and custom
