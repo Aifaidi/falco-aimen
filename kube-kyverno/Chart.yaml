@@ -1,0 +1,50 @@
+apiVersion: v2
+name: kyverno
+description: Kubernetes Native Policy Management
+type: application
+version: 0.0.1
+appVersion: latest
+icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
+keywords:
+- kubernetes
+- nirmata
+- policy agent
+- policy
+- validating webhook
+- admission controller
+- mutation
+- mutate
+- validate
+- generate
+- supply chain
+- security
+home: https://kyverno.io/
+sources:
+- https://github.com/kyverno/kyverno
+maintainers:
+- name: Nirmata
+  email: support@nirmata.com
+kubeVersion: ">=1.25.0-0"
+annotations:
+  artifacthub.io/operator: "false"
+  artifacthub.io/prerelease: "false"
+  artifacthub.io/links: |
+    - name: Documentation
+      url: https://kyverno.io/docs
+  artifacthub.io/changes: |
+    - kind: added
+      description: Add a key to preserve configmap settings during upgrade
+    - kind: added
+      description: Make admission reports breaker threshold configurable
+    - kind: removed
+      description: Deprecated configuration `features.reports.chunkSize` was removed
+dependencies:
+- name: kyverno
+  version: 3.2.6
+  repository: https://kyverno.github.io/kyverno/
+- name: kyverno-policies
+  version: 0.0.0
+  repository: https://github.com/kyverno/policies
+- name: policy-reporter
+  version: 2.24.1
+  repository: https://kyverno.github.io/policy-reporter
