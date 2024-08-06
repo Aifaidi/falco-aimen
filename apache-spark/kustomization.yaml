@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: spark-conf
+  files:
+  - spark-defaults.conf
+
+patchesStrategicMerge:
+- worker.yaml
+- master.yaml
+
+resources:
+- ssl-store.sealed.yaml
+- hive-site.sealed.yaml
+- spark-crt-custom.sealed.yaml
+

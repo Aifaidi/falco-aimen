@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: spark-worker
+  namespace: apache-spark
+  template:
+    spec:
+      volumes:
+      - name: certs
+        secret:
+          defaultMode: 420
+          secretName: spark-crt-custom
